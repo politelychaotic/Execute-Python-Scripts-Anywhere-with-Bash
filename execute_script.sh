@@ -18,13 +18,24 @@ filename=$1
 if [ "$result" != ' ' ]; then
     echo "${result}"
 
-    python3 $result $2 $3 #python or python3 depending on system
+    { # try `python`
+
+       printf "Trying 'python'...\n"
+       python $result $2 $3
+
+
+   } || { # catch, try `python3`
+
+       printf "'python' failed, trying 'python3\n"
+       python3 $result $2 $3
+
+   }
+
     exit 0
 else
     echo Failure
     exit 0
 fi
-
 
 
 
